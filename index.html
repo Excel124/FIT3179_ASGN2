@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malaysian Tourism Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #afd9fd;
+        }
+        header {
+            background-color: #00008b;
+            color: #ffffff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            color: #cc0000;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 2.2em;
+        }
+        h2 {
+            color: #006600;
+            margin-top: 30px;
+        }
+        .chart-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .chart {
+            width: 100%;
+            height: 500px;
+            margin: 0 auto;
+        }
+        .radarChart {
+            width: 100%;
+            margin: 0 ;
+        }
+        .description {
+            margin-top: 15px;
+            text-align: justify;
+            font-size: 0.95em;
+            color: #555;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #cc0000;
+        }
+        .key-fact {
+            background-color: #fff2cc;
+            border-left: 4px solid #ffbf00;
+            padding: 10px;
+            margin-top: 15px;
+        }
+        #sankey_div {
+            width: 100%;
+            height: 600px;
+        }
+        .attribution {
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div>FIT3179</div>
+        <div>Data Visualization</div>
+        <div>Malaysian Tourism Analysis</div>
+    </header>
+
+    <h1>Malaysian Tourism: A Comprehensive Analysis</h1>
+    
+    <div class="key-fact">
+        Malaysia's tourism industry is a vital component of its economy, demonstrating resilience and adaptability in the face of global challenges.
+    </div>
+
+    <div class="chart-container">
+        <h2>Malaysia Immigration Visualization</h2>
+        <div id="map_chart" class="chart"></div>
+        <div class="description">
+            <p>This map illustrates the global distribution of arrivals to Malaysia. <span class="highlight">Southeast Asia shows high immigration rates</span>, while Australia stands out with significant arrivals. The visualization allows for year selection and filtering by state of entry, providing insights into tourism patterns and their changes over time.</p>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <h2>Immigration Heatmap by Month and Year</h2>
+        <div id="heatmap_chart" class="chart"></div>
+        <div class="description">
+            <p>This heatmap visualizes the total arrivals to Malaysia by month and year. <span class="highlight">Darker shades indicate higher numbers of arrivals</span>. The impact of the COVID-19 pandemic is starkly visible, with a dramatic drop in arrivals from early 2020. The gradual recovery in later years is evident, showing the resilience of Malaysia's tourism sector. Notably, there's a consistent pattern of higher arrivals during certain months, likely corresponding to peak tourism seasons.</p>
+        </div>
+    </div>
+
+    <div class="key-fact">
+        The seasonal patterns in tourist arrivals highlight the importance of targeted marketing and infrastructure preparation for peak seasons, while also suggesting opportunities to boost tourism during off-peak months.
+    </div>
+
+    <div class="chart-container">
+        <h2>Tourism Expenditure Comparison (2019 vs 2023)</h2>
+        <div id="radar_chart" class="radarChart"></div>
+        <div class="description">
+            <p>This radar chart compares tourism expenditure across various categories between 2019 and 2023. <span class="highlight">Country-specific goods consistently show the highest expenditure</span> in both years, indicating the strong appeal of local products to tourists. The chart reveals significant changes in spending patterns, particularly in passenger transport and travel agencies, likely reflecting the impact of the COVID-19 pandemic and subsequent recovery. Food & Beverage and Automotive Fuel categories show resilience, suggesting these are essential components of tourist spending regardless of external factors.</p>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <h2>Tourism Expenditure by Category and Year</h2>
+        <div id="stacked_area_chart" class="chart"></div>
+        <div class="description">
+            <p>This stacked area chart shows the evolution of tourism expenditure across different categories over time. <span class="highlight">Country-specific tourism characteristic goods dominate the expenditure</span>, followed by accommodation services and food and beverage services. The chart clearly illustrates the dramatic drop in 2020 due to the pandemic and the subsequent recovery. The varying rates of recovery across different categories provide insights into changing tourist preferences and behaviors post-pandemic, with some sectors rebounding faster than others.</p>
+        </div>
+    </div>
+
+    <div class="key-fact">
+        The consistent high expenditure on country-specific goods underscores the importance of promoting local products and crafts as a key strategy for boosting tourism revenue.
+    </div>
+
+    <div class="chart-container">
+        <h2>Tourism's Contribution to Malaysian GDP (2015-2023)</h2>
+        <div id="bar_chart" class="chart"></div>
+        <div class="description">
+            <p>This chart illustrates the direct contribution of tourism to Malaysia's GDP from 2015 to 2023. <span class="highlight">Tourism's contribution peaked in 2019 at 6.8% of GDP</span>, before dropping sharply in 2020 and 2021 due to the pandemic. The sector shows signs of recovery in 2022 and 2023, though not yet reaching pre-pandemic levels. This trend highlights the tourism industry's significant impact on Malaysia's economy and its vulnerability to global events. The gradual recovery suggests resilience in the sector and potential for further growth as global travel continues to normalize.</p>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <h2>Tourism Expenditure Flow (2023)</h2>
+        <div id="sankey_div"></div>
+        <div class="description">
+            <p>The Sankey diagram illustrates the flow of tourism expenditure from domestic and inbound sources to various spending categories in 2023. <span class="highlight">Domestic tourism dominates overall spending</span>, particularly in country-specific goods, food and beverage, and automotive fuel. Inbound tourism shows significant contributions to passenger transport and country-specific goods. This visualization highlights the importance of both domestic and international tourism to Malaysia's economy, with domestic tourism playing a crucial role in sustaining the industry, especially in the wake of global travel disruptions.</p>
+        </div>
+    </div>
+
+    <div class="key-fact">
+        The strong domestic tourism expenditure underscores the importance of promoting internal travel alongside international visitor attraction, providing a buffer against global travel disruptions.
+    </div>
+    <div class="attribution">
+        <p>Data Source: Ministry of Tourism, Arts, and Culture, Malaysia (2024) and Ministry of Immigration (2024)</p>
+        <p>Retrieved from: <a href="https://data.gov.my/" target="_blank">https://data.gov.my/</a> and <a href="https://www.motac.gov.my/en/" target="_blank">https://www.motac.gov.my/en/</a></p>
+    </div>
+
+    <script>
+        // Vega-Lite specifications for each chart
+        var spec_map = "map.json";
+        var spec_radar = "radar_graph.json";
+        var spec_stacked_area = "stacked area.json";
+        var spec_bar = "barchart.json";
+        var spec_heatmap = "heatmap.json";
+
+        // Function to embed charts
+        function embedChart(spec, elementId) {
+            vegaEmbed(elementId, spec, {actions: false}).then(function(result) {
+                // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            }).catch(console.error);
+        }
+
+        // Embed all charts
+        embedChart(spec_map, "#map_chart");
+        embedChart(spec_radar, "#radar_chart");
+        embedChart(spec_stacked_area, "#stacked_area_chart");
+        embedChart(spec_bar, "#bar_chart");
+        embedChart(spec_heatmap, "#heatmap_chart");
+
+        // Sankey diagram
+        google.charts.load('current', {'packages':['sankey']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'From');
+            data.addColumn('string', 'To');
+            data.addColumn('number', 'Value');
+            data.addRows([
+                ['Domestic Tourism', 'Food and Beverage', 5068.1],
+                ['Domestic Tourism', 'Passenger Transport', 853.5],
+                ['Domestic Tourism', 'Travel Agencies', 1.9],
+                ['Domestic Tourism', 'Cultural and Recreational', 933.2],
+                ['Domestic Tourism', 'Automotive Fuel', 4335.7],
+                ['Domestic Tourism', 'Country-specific Goods', 18682.8],
+                ['Domestic Tourism', 'Country-specific Services', 1265.3],
+                ['Inbound Tourism', 'Food and Beverage', 505.7],
+                ['Inbound Tourism', 'Passenger Transport', 674.0],
+                ['Inbound Tourism', 'Travel Agencies', 157.6],
+                ['Inbound Tourism', 'Cultural and Recreational', 136.1],
+                ['Inbound Tourism', 'Automotive Fuel', 35.8],
+                ['Inbound Tourism', 'Country-specific Goods', 1214.0],
+                ['Inbound Tourism', 'Country-specific Services', 110.7]
+            ]);
+
+            var options = {
+                width: 1100,
+                height: 500,
+                sankey: {
+                    node: {
+                        colors: ['#005f73', '#0a9396', '#94d2bd', '#e9d8a6', '#ee9b00', '#ca6702', '#bb3e03', '#ae2012'],
+                        label: { fontSize: 14, color: '#000', bold: true, italic: false },
+                    },
+                    link: {
+                        colorMode: 'gradient',
+                        colors: ['#00008b', '#cc0000'],
+                    },
+                },
+            };
+
+            var chart = new google.visualization.Sankey(document.getElementById('sankey_div'));
+            chart.draw(data, options);
+        }
+    </script>
+</body>
+</html>
